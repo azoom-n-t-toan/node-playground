@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require('express');
 const app = express();
 
@@ -6,8 +7,8 @@ app.get('/', (req, res) => {
   res.send(`Hello ${name}!`);
 });
 
-app.get('/test', (req, res) => {
-  var knex = require('./node_modules2/knex/types')({
+app.get('/test', async (req, res) => {
+  var knex = require('knex')({
     client: 'mysql2',
     connection: {
       host: '127.0.0.1',
