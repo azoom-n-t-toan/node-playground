@@ -2,24 +2,25 @@ require('dotenv').config()
 const express = require('express');
 const app = express();
 
+
+var knex = require('knex')({
+  client: 'pg',
+  connection: {
+    SOCKET_PATH: process.env.SOCKET_PATH,
+    user: 'postgres',
+    password: process.env.PASSWORD,
+    database: 'geography',
+    port: '3307',
+  }
+})
+
 app.get('/', (req, res) => {
   const name = process.env.NAME || 'World';
   res.send(`Hello ${name}!`);
 });
 
 app.get('/test', async (req, res) => {
-  var knex = require('knex')({
-    client: 'mysql2',
-    connection: {
-      host: '127.0.0.1',
-      user: 'root',
-      password: '',
-      database: 'toan',
-      port: '3307',
-    }
-  })
-
-  const all = await knex('users')
+  const all = await knex('cities')
   res.json(all)
 });
 
