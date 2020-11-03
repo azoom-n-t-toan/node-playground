@@ -2,15 +2,13 @@ require('dotenv').config()
 const express = require('express');
 const app = express();
 
-
 var knex = require('knex')({
   client: 'pg',
   connection: {
     SOCKET_PATH: process.env.SOCKET_PATH,
-    user: 'postgres',
+    user: process.env.USER,
     password: process.env.PASSWORD,
-    database: 'geography',
-    port: '3307',
+    database: process.env.DB,
   }
 })
 

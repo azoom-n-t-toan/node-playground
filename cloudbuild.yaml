@@ -1,0 +1,13 @@
+steps:
+  # Build the container image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/gocow-291809/toan-image', '.']
+  # Push the container image to Container Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/gocow-291809/toan-image']
+  # Deploy container image to Cloud Run
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args: ['run', 'deploy', 'toan-service', '--image', 'gcr.io/gocow-291809/toan-image', '--region', 'us-central1', '--platform', 'managed']
+images:
+  - gcr.io/gocow-291809/toan-image
